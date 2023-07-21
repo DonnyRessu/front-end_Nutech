@@ -6,7 +6,12 @@ import "./App.css";
 import CardProducts from "./components/CardProducts";
 import CardSearch from "./components/CardSearch";
 import { useMutation } from "react-query";
-import { addProduct, addProducts } from "../src/redux/reducer/product";
+import {
+  addProduct,
+  addProducts,
+  deleteProduct,
+  updateProduct,
+} from "../src/redux/reducer/product";
 import { useSelector, useDispatch } from "react-redux";
 
 function App() {
@@ -72,20 +77,8 @@ function App() {
   const [dataProduct, setDataProduct] = useState(null);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        let response = await axios.get(
-          "https://api.npoint.io/f69187f3f78096da69e8"
-        );
-
-        dispatch(addProducts(response.data));
-        setdataSearch(response.data);
-        setIsloading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getData();
+    setdataSearch(products);
+    setIsloading(false);
   }, []);
 
   useEffect(() => {
@@ -114,9 +107,7 @@ function App() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        let tempPosts = [...dataProduct];
-        tempPosts.splice(id, 1);
-        setDataProduct(tempPosts);
+        dispatch(deleteProduct(id));
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
     });
@@ -174,6 +165,13 @@ function App() {
     }
   };
 
+  const handleClickUpdate = (id) => {
+    setidUpdate(id.name);
+    const toUpdate = products.find((item) => item.name === id.name);
+    console.log(toUpdate);
+    setDataUpdate(toUpdate);
+  };
+
   const handleKeyPress = (event) => {
     if (!/\d/.test(event.key)) {
       event.preventDefault();
@@ -182,15 +180,13 @@ function App() {
   };
 
   const tambahProduct = (e) => {
-    console.log(product);
     e.preventDefault();
     dispatch(addProduct(product));
   };
+
   const updateProduct = (e) => {
     e.preventDefault();
-    let tempPosts = [...dataProduct];
-    tempPosts.splice(idUpdate, 1, dataUpdate);
-    setDataProduct(tempPosts);
+    dispatch(updateProduct(dataUpdate));
   };
 
   const handleSearch = (e) => {
@@ -226,7 +222,7 @@ function App() {
         <div className="modal">
           <div className="modal-box bg-white text-zinc-800">
             <h3 className="text-xl font-bold mb-5">Update Product</h3>
-            <form onSubmit={(e) => updateProduct(e)}>
+            <form key={"update"} onSubmit={updateProduct}>
               <div className="flex flex-col items-center gap-5 w-full h-full bg-white justify-center">
                 <div className="flex flex-row-reverse gap-3">
                   <label
@@ -253,6 +249,7 @@ function App() {
                     placeholder="Nama Produk"
                     onChange={updateOnChange}
                     name="name"
+                    value={dataUpdate.name}
                   />
                 </div>
                 <input
@@ -262,6 +259,7 @@ function App() {
                   placeholder="Harga Beli"
                   onChange={updateOnChange}
                   name="purchaseprice"
+                  value={dataUpdate.purchaseprice}
                 />
                 <input
                   className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
@@ -270,6 +268,7 @@ function App() {
                   placeholder="Harga Jual"
                   onChange={updateOnChange}
                   name="sellprice"
+                  value={dataUpdate.sellprice}
                 />
                 <input
                   className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
@@ -278,15 +277,14 @@ function App() {
                   placeholder="Stok Barang"
                   onChange={updateOnChange}
                   name="stock"
+                  value={dataUpdate.stock}
                 />
                 <div className="modal-action">
-                  <button
+                  <input
                     type="submit"
                     value="Update Product"
-                    className="btn p-4 px-10 bg-zinc-800 text-white rounded-lg "
-                  >
-                    Update
-                  </button>
+                    className="p-4 px-10 bg-zinc-800 text-white rounded-lg "
+                  />
                 </div>
               </div>
             </form>
@@ -302,7 +300,7 @@ function App() {
         <div className="modal">
           <div className="modal-box bg-white text-zinc-800">
             <h3 className="text-xl font-bold mb-5">Update Product</h3>
-            <form onSubmit={(e) => tambahProduct(e)}>
+            <form key={"add"} onSubmit={(e) => tambahProduct(e)}>
               <div className="flex flex-col items-center gap-5 w-full h-full bg-white justify-center">
                 <div className="flex flex-row-reverse gap-3">
                   <label
@@ -371,11 +369,16 @@ function App() {
       <div>
         <div className="w-full h-full flex-col flex items-center justify-center">
           <p className="text-medium text-3xl pb-5 text-zinc-900">
-            Assigment task
+            Tugas Nutech
           </p>
           <label
-            onClick={() => setidUpdate(index)}
-            htmlFor="my_modal_8"
+            onClick={() => {
+              if (!token) {
+                return alert("token belum di generate");
+              }
+              // setidUpdate(index);
+            }}
+            htmlFor={token ? "my_modal_8" : null}
             className="bg-blue-600 text-white p-2 px-3 rounded-md"
           >
             Add Product
@@ -396,7 +399,7 @@ function App() {
             <CardProducts
               post={dataSearch.slice(firstPostIndex, lastPostIndex)}
               update={updateProduct}
-              setidUpdate={setidUpdate}
+              setidUpdate={handleClickUpdate}
               deleteData={deleteData}
             />
           }

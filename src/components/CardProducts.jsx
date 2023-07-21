@@ -16,13 +16,13 @@ const CardProducts = ({ post, setidUpdate, deleteData }) => {
             <p>Stock: {item.stock}</p>
             <div className="mt-5 flex gap-3">
               <button
-                onClick={() => deleteData(index)}
+                onClick={() => deleteData(item)}
                 className="bg-red-600 text-white p-2 px-3 rounded-md"
               >
                 Delete
               </button>
               <label
-                onClick={() => setidUpdate(index)}
+                onClick={() => setidUpdate(item)}
                 htmlFor="my_modal_7"
                 className="bg-blue-600 text-white p-2 px-3 rounded-md"
               >

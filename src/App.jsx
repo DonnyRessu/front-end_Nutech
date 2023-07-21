@@ -10,7 +10,7 @@ import {
   addProduct,
   addProducts,
   deleteProduct,
-  updateProduct,
+  updateProduct as updateProductAction,
 } from "../src/redux/reducer/product";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -166,10 +166,8 @@ function App() {
   };
 
   const handleClickUpdate = (id) => {
-    setidUpdate(id.name);
-    const toUpdate = products.find((item) => item.name === id.name);
-    console.log(toUpdate);
-    setDataUpdate(toUpdate);
+    setidUpdate(id);
+    setDataUpdate(products[id]);
   };
 
   const handleKeyPress = (event) => {
@@ -186,7 +184,7 @@ function App() {
 
   const updateProduct = (e) => {
     e.preventDefault();
-    dispatch(updateProduct(dataUpdate));
+    dispatch(updateProductAction({ id: idUpdate, data: dataUpdate }));
   };
 
   const handleSearch = (e) => {

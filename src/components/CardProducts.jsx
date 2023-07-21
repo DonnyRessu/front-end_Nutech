@@ -22,7 +22,7 @@ const CardProducts = ({ post, setidUpdate, deleteData }) => {
                 Delete
               </button>
               <label
-                onClick={() => setidUpdate(item)}
+                onClick={() => setidUpdate(index)}
                 htmlFor="my_modal_7"
                 className="bg-blue-600 text-white p-2 px-3 rounded-md"
               >

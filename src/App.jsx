@@ -26,7 +26,7 @@ function App() {
   const handleOnSubmit = async (e) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/login",
+        "https://dumb-sound.onrender.com/api/v1/login",
         Login
       );
       console.log(" ", response);
@@ -217,83 +217,6 @@ function App() {
           clear token
         </button>
       </div>
-      <div>
-        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-        <div className="modal">
-          <div className="modal-box bg-white text-zinc-800">
-            <h3 className="text-xl font-bold mb-5">Update Product</h3>
-            <form key={"update"} onSubmit={updateProduct}>
-              <div className="flex flex-col items-center gap-5 w-full h-full bg-white justify-center">
-                <div className="flex flex-row-reverse gap-3">
-                  <label
-                    className="bg-zinc-800 text-white p-3 px-14 w-28 "
-                    for="imageUpdate"
-                  >
-                    Image
-                  </label>
-                  <input
-                    className="px-2 py-2 border-2 border-blue-200 rounded-md "
-                    type="file"
-                    placeholder="Foto"
-                    onChange={updateOnChange}
-                    name="image"
-                    hidden
-                    accept="image/png, image/jpeg"
-                    id="imageUpdate"
-                    required
-                  />
-
-                  <input
-                    className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-full"
-                    type="text"
-                    placeholder="Nama Produk"
-                    onChange={updateOnChange}
-                    name="name"
-                    value={dataUpdate.name}
-                  />
-                </div>
-                <input
-                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
-                  type="text"
-                  onKeyPress={handleKeyPress}
-                  placeholder="Harga Beli"
-                  onChange={updateOnChange}
-                  name="purchaseprice"
-                  value={dataUpdate.purchaseprice}
-                />
-                <input
-                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
-                  type="text"
-                  onKeyPress={handleKeyPress}
-                  placeholder="Harga Jual"
-                  onChange={updateOnChange}
-                  name="sellprice"
-                  value={dataUpdate.sellprice}
-                />
-                <input
-                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
-                  type="text"
-                  onKeyPress={handleKeyPress}
-                  placeholder="Stok Barang"
-                  onChange={updateOnChange}
-                  name="stock"
-                  value={dataUpdate.stock}
-                />
-                <div className="modal-action">
-                  <input
-                    type="submit"
-                    value="Update Product"
-                    className="p-4 px-10 bg-zinc-800 text-white rounded-lg "
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
-          <label className="modal-backdrop" htmlFor="my_modal_7">
-            Close
-          </label>
-        </div>
-      </div>
 
       <div>
         <input type="checkbox" id="my_modal_8" className="modal-toggle" />
@@ -361,6 +284,86 @@ function App() {
             </form>
           </div>
           <label className="modal-backdrop" htmlFor="my_modal_8">
+            Close
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+        <div className="modal">
+          <div className="modal-box bg-white text-zinc-800">
+            <h3 className="text-xl font-bold mb-5">Update Product</h3>
+            <form key={"update"} onSubmit={updateProduct}>
+              <div className="flex flex-col items-center gap-5 w-full h-full bg-white justify-center">
+                <div className="flex flex-row-reverse gap-3">
+                  <label
+                    className="bg-zinc-800 text-white p-3 px-14 w-28 "
+                    for="imageUpdate"
+                  >
+                    Image
+                  </label>
+                  <input
+                    className="px-2 py-2 border-2 border-blue-200 rounded-md "
+                    type="file"
+                    placeholder="Foto"
+                    onChange={updateOnChange}
+                    name="image"
+                    hidden
+                    accept="image/png, image/jpeg"
+                    id="imageUpdate"
+                    required
+                  />
+
+                  <input
+                    className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-full"
+                    type="text"
+                    placeholder="Nama Produk"
+                    onChange={updateOnChange}
+                    name="name"
+                    value={dataUpdate.name}
+                  />
+                </div>
+                <input
+                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
+                  type="text"
+                  onKeyPress={handleKeyPress}
+                  placeholder="Harga Beli"
+                  onChange={updateOnChange}
+                  name="purchaseprice"
+                  value={dataUpdate.purchaseprice}
+                />
+                <input
+                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
+                  type="text"
+                  onKeyPress={handleKeyPress}
+                  placeholder="Harga Jual"
+                  onChange={updateOnChange}
+                  name="sellprice"
+                  value={dataUpdate.sellprice}
+                />
+                <input
+                  className="px-2 py-2 border-2 border-blue-200 rounded-md bg-white w-2/3"
+                  type="text"
+                  onKeyPress={handleKeyPress}
+                  placeholder="Stok Barang"
+                  onChange={updateOnChange}
+                  name="stock"
+                  value={dataUpdate.stock}
+                />
+                <div className="modal-action">
+                  <button
+                    type="submit"
+                    value="Update Product"
+                    className="p-4 px-10 bg-zinc-800 text-white rounded-lg "
+                  >
+                    Update Product
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <label className="modal-backdrop" htmlFor="my_modal_7">
             Close
           </label>
         </div>
